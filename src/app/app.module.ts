@@ -33,6 +33,7 @@ import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { AppRoutingModule } from './app-routing.module';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (oktaAuth: any,injector: { get: (arg0: typeof Router) => any; }) => {
@@ -43,21 +44,6 @@ const oktaConfig = Object.assign({
   }
 }, myAppConfig.oidc);
 
-const routes :Routes = [
-  {path: 'order-history', component: OrderHistoryComponent, canActivate: [OktaAuthGuard]},
-  {path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard]},
-  {path: 'login/callback', component: OktaCallbackComponent},
-  {path: 'login', component: LoginComponent},
-  {path:'checkout', component: CheckoutComponent},
-  {path:'category/:id', component: ProductListComponent},
-  {path:'category', component: ProductListComponent},
-  {path:'cart-details', component: CartDetailsComponent},
-  {path:'products', component: ProductListComponent},
-  {path:'products/:id', component: ProductDetailComponent},
-  {path: 'search/:keyword', component: ProductListComponent},
-  {path:'', redirectTo: '/products', pathMatch: 'full'},
-  {path:'**', redirectTo: '/products', pathMatch: 'full'}
-];
 
 @NgModule({
   declarations: [
@@ -80,7 +66,7 @@ const routes :Routes = [
     NgbModule,
     ReactiveFormsModule,
     OktaAuthModule,
-    RouterModule.forRoot(routes)
+    AppRoutingModule
   ],
   providers: 
   [
